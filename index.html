@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>迎接我们的小公主</title>
+    <meta name="description" content="倒计时迎接我们的小公主降临。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;900&family=Nunito:wght@300;600;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary-text: #4a2c35;
+            --secondary-text: #7a4f5d;
+            --glass-bg: rgba(255, 255, 255, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --glass-shadow: rgba(142, 84, 104, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Serif SC', serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background: linear-gradient(-45deg, #fce3ec, #ffe8e8, #f5e6fa, #fff0f0);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--primary-text);
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Floating shapes */
+        .shapes-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .shape {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float infinite linear;
+        }
+
+        .shape:nth-child(1) {
+            width: 150px;
+            height: 150px;
+            left: 10%;
+            top: 80%;
+            animation-duration: 25s;
+        }
+
+        .shape:nth-child(2) {
+            width: 80px;
+            height: 80px;
+            left: 80%;
+            top: 20%;
+            animation-duration: 15s;
+            animation-delay: 2s;
+        }
+
+        .shape:nth-child(3) {
+            width: 200px;
+            height: 200px;
+            left: 70%;
+            top: 70%;
+            animation-duration: 30s;
+            animation-delay: 5s;
+        }
+
+        .shape:nth-child(4) {
+            width: 60px;
+            height: 60px;
+            left: 20%;
+            top: 15%;
+            animation-duration: 18s;
+            animation-delay: 1s;
+        }
+
+        .shape:nth-child(5) {
+            width: 120px;
+            height: 120px;
+            left: 45%;
+            top: 50%;
+            animation-duration: 22s;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg) scale(0.8);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-20vh) rotate(360deg) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* Glassmorphism Container */
+        .glass-card {
+            position: relative;
+            z-index: 10;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 3rem 4rem;
+            box-shadow: 0 15px 35px var(--glass-shadow);
+            text-align: center;
+            max-width: 90%;
+            width: 800px;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes slideUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .lang-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 800;
+            color: var(--primary-text);
+            cursor: pointer;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .lang-btn:hover {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        .title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+            background: linear-gradient(45deg, #d85c85, #b46b8d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--secondary-text);
+            margin-bottom: 3rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .countdown-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .time-box {
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 1.5rem;
+            min-width: 120px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .time-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(216, 92, 133, 0.2);
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        .number {
+            font-family: 'Nunito', sans-serif;
+            display: block;
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #d85c85;
+            line-height: 1.2;
+            margin-bottom: 0.2rem;
+        }
+
+        .label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--secondary-text);
+        }
+
+        .message {
+            font-size: 1.1rem;
+            color: var(--secondary-text);
+            line-height: 1.6;
+            margin-top: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .message::before {
+            content: "🌸";
+            margin: 0 10px;
+            font-size: 1.2rem;
+            animation: pulse 2s infinite;
+            display: inline-block;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .glass-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .countdown-wrapper {
+                gap: 1rem;
+            }
+
+            .time-box {
+                min-width: 80px;
+                padding: 1rem;
+            }
+
+            .number {
+                font-size: 2.5rem;
+            }
+
+            .title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="shapes-container">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <button id="lang-toggle" onclick="toggleLang()" class="lang-btn">EN</button>
+    <div class="glass-card">
+        <h1 class="title" data-i18n="title">期待我们的小公主降临</h1>
+        <p class="subtitle" data-i18n="date">2026年7月9日</p>
+
+        <div class="countdown-wrapper">
+            <div class="time-box">
+                <span id="days" class="number">00</span>
+                <span class="label" data-i18n="days">天</span>
+            </div>
+            <div class="time-box">
+                <span id="hours" class="number">00</span>
+                <span class="label" data-i18n="hours">时</span>
+            </div>
+            <div class="time-box">
+                <span id="minutes" class="number">00</span>
+                <span class="label" data-i18n="minutes">分</span>
+            </div>
+            <div class="time-box">
+                <span id="seconds" class="number">00</span>
+                <span class="label" data-i18n="seconds">秒</span>
+            </div>
+        </div>
+
+        <div class="message" data-i18n="msg1">
+            倒计时正在进行中，满心欢喜地等待她的到来
+        </div>
+        <div class="message" data-i18n="msg2">
+            爸爸媽媽正在煩惱要叫她 雨寧 還是 歆璇， PM 她爸媽你的想法！
+        </div>
+    </div>
+
+    <script>
+        let currentLang = "cn";
+        const translations = {
+            title: { cn: "期待我们的小公主降临", en: "Waiting for our little princess" },
+            date: { cn: "2026年7月9日", en: "July 9, 2026" },
+            days: { cn: "天", en: "Days" },
+            hours: { cn: "时", en: "Hours" },
+            minutes: { cn: "分", en: "Mins" },
+            seconds: { cn: "秒", en: "Secs" },
+            msg1: { cn: "倒计时正在进行中，满心欢喜地等待她的到来", en: "The countdown is on, joyfully awaiting her arrival!" },
+            msg2: { cn: "爸爸媽媽正在煩惱要叫她 雨寧 還是 昕璇， PM 她爸媽你的想法", en: "Mom & Dad are deciding between Yu Ning or Xin Xuan. PM them your thoughts!" },
+            arrived: { cn: "小公主已经降临啦！", en: "Our little princess has arrived!" }
+        };
+
+        function toggleLang() {
+            currentLang = currentLang === "cn" ? "en" : "cn";
+            document.documentElement.lang = currentLang === "cn" ? "zh-CN" : "en";
+            document.querySelectorAll("[data-i18n]").forEach(el => {
+                const key = el.getAttribute("data-i18n");
+                if (translations[key]) {
+                    el.innerText = translations[key][currentLang];
+                }
+            });
+            const btn = document.getElementById("lang-toggle");
+            btn.innerText = currentLang === "cn" ? "EN" : "中";
+            document.title = translations.title[currentLang];
+        }
+
+        // Set the target date: July 9, 2026
+        const targetDate = new Date("2026-07-09T00:00:00").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            const daysElement = document.getElementById("days");
+            const hoursElement = document.getElementById("hours");
+            const minutesElement = document.getElementById("minutes");
+            const secondsElement = document.getElementById("seconds");
+
+            if (distance < 0) {
+                daysElement.innerText = "00";
+                hoursElement.innerText = "00";
+                minutesElement.innerText = "00";
+                secondsElement.innerText = "00";
+                const msgEls = document.querySelectorAll('.message');
+                if (msgEls[0]) {
+                    msgEls[0].setAttribute('data-i18n', 'arrived');
+                    msgEls[0].innerText = translations.arrived[currentLang];
+                }
+                if (msgEls[1]) {
+                    msgEls[1].style.display = 'none';
+                }
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            updateNumber(daysElement, days);
+            updateNumber(hoursElement, hours);
+            updateNumber(minutesElement, minutes);
+            updateNumber(secondsElement, seconds);
+        }
+
+        function updateNumber(element, newValue) {
+            const formattedValue = newValue.toString().padStart(2, '0');
+            if (element.innerText !== formattedValue) {
+                element.innerText = formattedValue;
+                element.style.transform = "scale(1.1)";
+                setTimeout(() => {
+                    element.style.transform = "scale(1)";
+                }, 150);
+            }
+        }
+
+        document.querySelectorAll('.number').forEach(el => {
+            el.style.transition = "transform 0.15s ease";
+        });
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+</body>
+
+</html>
